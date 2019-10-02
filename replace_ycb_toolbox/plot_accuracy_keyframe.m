@@ -30,6 +30,7 @@ max_distance = 0.1;
 
 % for each class
 for k = 1:numel(classes)
+    #寻找index
     index = find(cls_ids == k);
     if isempty(index)
         index = 1:size(distances_sys,1);
@@ -38,11 +39,13 @@ for k = 1:numel(classes)
     % distance symmetry
     subplot(2, 2, 1);
     for i = index_plot
+        # 对称距离？
         D = distances_sys(index, i);
         D(D > max_distance) = inf;
         d = sort(D);
         n = numel(d);
         c = numel(d(d < 0.02));
+        # 计算准确率
         accuracy = cumsum(ones(1, n)) / n;
 %         fprintf('k = %d i = %d : length %d\n',k,i,length(d));
 %         dd = find(d == d(end));
